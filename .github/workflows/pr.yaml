@@ -16,9 +16,9 @@ jobs:
         with:
           node-version: 18.x
       - name: Extract branch name
-        id: extract_branch_name
         shell: bash
-        run: echo "::set-output name=branch_name::${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+        id: "extract_branch_name"
+        run: echo "branch_name=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
       - name: Show branch name
         shell: bash
         run: echo ${{ steps.extract_branch_name.outputs.branch_name }}
