@@ -22,9 +22,10 @@ jobs:
       - name: Show branch name
         shell: bash
         run: echo ${{ steps.extract_branch_name.outputs.branch_name }}
-      # - name: Extract PR type
-      #   shell: bash
-      #   run: PR_TYPE=$(echo "$ORIGIN_BRANCH" | cut -d '/' -f 1)
-      # - name: Show PR type
-      #   shell: bash
-      #   run: echo $PR_TYPE
+      - name: Extract PR type
+        shell: bash
+        id: "extract_pr_type"
+        run: echo pr_type=$(echo ${{ steps.extract_branch_name.outputs.branch_name }} | cut -d '/' -f 1) >> $GITHUB_OUTPUT
+      - name: Show PR type
+        shell: bash
+        run: echo ${{ steps.extract_pr_type.outputs.pr_type }}
