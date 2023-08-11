@@ -11,21 +11,35 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
+
       - name: Extract branch name
         shell: bash
         id: "extract_branch_name"
         run: echo "branch_name=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+
       - name: Show branch name
         shell: bash
         run: echo ${{ steps.extract_branch_name.outputs.branch_name }}
+
       - name: Extract PR type
         shell: bash
         id: "extract_pr_type"
         run: echo pr_type=$(echo ${{ steps.extract_branch_name.outputs.branch_name }} | cut -d '/' -f 1) >> $GITHUB_OUTPUT
+
       - name: Show PR type
         shell: bash
         run: echo ${{ steps.extract_pr_type.outputs.pr_type }}
+
+      - name: Extract latest tag
+        shell: bash
+        id: "extract_latest_tag"
+        run: echo "latest_tag=$(git tag -l 'v[0-9]*.[0-9]*.[0-9]' --sort=-v:refname | grep -v '\-rc.*' | head -n 1)" >> $GITHUB_OUTPUT
+
+      - name: Show latest tag
+        shell: bash
+        run: echo ${{ steps.extract_latest_tag.outputs.latest_tag }}
