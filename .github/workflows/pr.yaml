@@ -17,4 +17,10 @@ jobs:
           node-version: 18.x
       - name: Extract branch name
         shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+        run: echo "${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $ORIGIN_BRANCH
+      - name: Extract PR type
+        shell: bash
+        run: PR_TYPE=$(echo "$ORIGIN_BRANCH" | cut -d '/' -f 1)
+      - name: Show PR type
+        shell: bash
+        run: echo $PR_TYPE
