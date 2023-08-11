@@ -43,3 +43,12 @@ jobs:
       - name: Show latest tag
         shell: bash
         run: echo ${{ steps.extract_latest_tag.outputs.latest_tag }}
+
+      - name: Extract is_first_tag
+        shell: bash
+        id: "extract_is_first_tag"
+        run: if [ -z "$latest_tag" ]; then echo "is_first_tag=true" >> $GITHUB_OUTPUT; else "is_first_tag=false" >> $GITHUB_OUTPUT; fi
+
+      - name: Show is_first_tag
+        shell: bash
+        run: echo ${{ steps.extract_is_first_tag.outputs.is_first_tag }}
