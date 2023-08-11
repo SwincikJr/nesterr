@@ -16,11 +16,12 @@ jobs:
         with:
           node-version: 18.x
       - name: Extract branch name
+        id: extract_branch_name
         shell: bash
-        run: echo "${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
-      - name: SHow branch name
+        run: echo "::set-output name=branch_name::${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+      - name: Show branch name
         shell: bash
-        run: echo $ORIGIN_BRANCH
+        run: echo ${{ steps.extract_branch_name.outputs.branch_name }}
       # - name: Extract PR type
       #   shell: bash
       #   run: PR_TYPE=$(echo "$ORIGIN_BRANCH" | cut -d '/' -f 1)
