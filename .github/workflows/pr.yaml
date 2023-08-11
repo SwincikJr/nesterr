@@ -17,7 +17,7 @@ jobs:
           node-version: 18.x
       - name: Extract branch name
         shell: bash
-        run: ORIGIN_BRANCH="${{ github.ref_name }}"
+        run: set ORIGIN_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
       - name: SHow branch name
         shell: bash
         run: echo $ORIGIN_BRANCH
