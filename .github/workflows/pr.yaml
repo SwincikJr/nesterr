@@ -59,10 +59,15 @@ jobs:
         if: steps.extract_is_first_tag.outputs.is_first_tag == 'true'
         shell: bash
         run: |
+          datetime_branch=$(date +'%Y%m%d%H%M%S')
+          new_tag=v1.0.0-rc.$datetime_branch
           git config --global user.name 'SwincikJr'
           git config --global user.email 'mauroswincikjr@gmail.com'
-          git tag -a v1.0.0-rc.$(date +'%Y%m%d%H%M%S') -m "auto generated tag"
-          git push origin v1.0.0-rc.$(date +'%Y%m%d%H%M%S')
+          git checkout -b rc/$datetime_branch
+          sed -i "s/\"version\": \".*\"/\"version\": \"$new_tag\"/" package.json
+          git commit -m "auto commit"
+          git pull origin main
+          git push origin rc/$datetime_branch
 
       - name: Create next release candidate tag
         if: steps.extract_is_first_tag.outputs.is_first_tag == 'false'
