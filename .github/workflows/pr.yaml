@@ -65,6 +65,7 @@ jobs:
           git config --global user.email 'mauroswincikjr@gmail.com'
           git checkout -b rc/$datetime_branch
           sed -i "s/\"version\": \".*\"/\"version\": \"$new_tag\"/" package.json
+          git add .
           git commit -m "auto commit"
           git pull origin main
           git push origin rc/$datetime_branch
