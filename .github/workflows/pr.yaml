@@ -56,9 +56,9 @@ jobs:
       - name: Create first release candidate tag
         if: steps.extract_is_first_tag.outputs.is_first_tag == 'true'
         shell: bash
-        run: echo "creating first release candidate tag..."
+        run: git tag -a v1.0.0-rc.$(date +'%Y%m%d%H%M%S') -m "auto generated tag"; git push origin v1.0.0-rc.$(date +'%Y%m%d%H%M%S')
 
-      - name: Create first release candidate tag
+      - name: Create next release candidate tag
         if: steps.extract_is_first_tag.outputs.is_first_tag == 'false'
         shell: bash
         run: echo "creating next release candidate tag..."
