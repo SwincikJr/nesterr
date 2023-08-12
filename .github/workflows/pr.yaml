@@ -63,6 +63,7 @@ jobs:
           new_tag=v1.0.0-rc.$datetime_branch
           git config --global user.name 'SwincikJr'
           git config --global user.email 'mauroswincikjr@gmail.com'
+          git config pull.rebase false
           git checkout -b rc/$datetime_branch
           sed -i "s/\"version\": \".*\"/\"version\": \"$new_tag\"/" package.json
           git add .
