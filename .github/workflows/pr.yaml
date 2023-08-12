@@ -66,7 +66,7 @@ jobs:
           git config pull.rebase false
           git fetch --all
           git checkout -b rc/$datetime_branch
-          git merge main -m "auto merge"
+          git merge origin/main -m "auto merge"
           sed -i "s/\"version\": \".*\"/\"version\": \"$new_tag\"/" package.json
           git add .
           git commit -m "auto commit"
