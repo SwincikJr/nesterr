@@ -58,7 +58,7 @@ jobs:
         shell: bash
         run: echo "creating first release candidate tag..."
 
-      - name: Create first release candidate tag
+      - name: Create next release candidate tag
         if: steps.extract_is_first_tag.outputs.is_first_tag == 'false'
         shell: bash
         run: echo "creating next release candidate tag..."
